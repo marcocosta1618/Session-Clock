@@ -14,7 +14,7 @@
     "xstate": "^4.23.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "BROWSER='Google Chrome Dev' react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
