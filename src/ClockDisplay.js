@@ -21,21 +21,19 @@ export default function ClockDisplay({ state }) {
     }
 
     return (
-        <span id="time-left">
-            current state: || {state.value === 'paused' ? 'PAUSED' : 'COUNTING'} ||
-            <div> session time: {formatTime(state.context.session_time)}; </div>
-            <div> break time: {formatTime(state.context.break_time)}; </div>
-            DISPLAY: {formatTime(display())}
-        </span>
+        <>
+            <span id="time-left">{formatTime(display())}</span>
+        </>
     )
 }
 
 // helper function, convert number of seconds in mm:ss format:
 function formatTime(seconds) {
     let sec = (seconds % 60).toString();
-    let min = Math.floor((seconds / 60) % 60).toString();
-    // let hour = Math.floor((seconds / 3600)).toString();
+    let min = seconds === 3600
+        ? 60 // display 60 min if sec === 3600
+        : Math.floor((seconds / 60) % 60).toString();
     if (sec.length === 1) { sec = '0' + sec }
     if (min.length === 1) { min = '0' + min }
-    return min + ':' + sec
+    return (min + ':' + sec).replace(/-1:-1/, '00:00')
 }
