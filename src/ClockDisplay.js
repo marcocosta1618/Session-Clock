@@ -1,7 +1,6 @@
 export default function ClockDisplay({ state }) {
-
     // on 'paused' state, displays sesssion or break time depending on state.historyValue 
-    // (i.e., previous state before 'paused')
+    // (i.e., what was the previous state)
     function display() {
         let display = state.context.session_time;
         if (state.value.counting === 'session') {
@@ -21,12 +20,9 @@ export default function ClockDisplay({ state }) {
     }
 
     return (
-        <>
-            <span id="time-left">{formatTime(display())}</span>
-        </>
+            <span id="time-left">{formatTime(display())}</span> // DISPLAY TIME REMAINING
     )
 }
-
 // helper function, convert number of seconds in mm:ss format:
 function formatTime(seconds) {
     let sec = (seconds % 60).toString();

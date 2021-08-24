@@ -5,6 +5,7 @@ import ClockDisplay from './ClockDisplay.js';
 import './style/SessionClock.css';
 
 function SessionClock() {
+  
   const [state, send] = useMachine(sessionClockMachine); // state-machine
 
   const [isOn, setIsOn] = useState(false); // timer START/STOP button state
@@ -53,6 +54,7 @@ function SessionClock() {
     const sound = audioEl.current;
     sound.pause();
     sound.currentTime = 0;
+    // send RESET to machine
     send({ type: 'RESET'});
   }
 

@@ -1,5 +1,4 @@
 import { createMachine, assign, send } from "xstate";
-//import { send } from "xstate/lib/actionTypes";
 
 const sessionClockMachine = createMachine({
     id: 'sessionClock',
@@ -61,9 +60,7 @@ const sessionClockMachine = createMachine({
                     },
                     exit: 'rewind_session'
                 },
-                hist: {
-                    type: 'history'
-                }
+                hist: { type: 'history' }
             },
             on: {
                 PAUSE: 'paused',
@@ -91,7 +88,7 @@ const sessionClockMachine = createMachine({
             session_length: (ctx) => ctx.session_length + 1,
         }),
         dec_session_length: assign({
-            session_time: (ctx) => (ctx.session_length + 1) * 60,
+            session_time: (ctx) => (ctx.session_length - 1) * 60,
             session_length: (ctx) => ctx.session_length - 1,
         }),
         inc_break_length: assign({
@@ -111,7 +108,7 @@ const sessionClockMachine = createMachine({
             break_time: (ctx) => (ctx.break_length) * 60
         }),
         // decrement session/break times by 1 sec 
-        // (actions called repeatedly by session_timer and break_timer):
+        // (actions called repeatedly by setInterval() in session_timer and break_timer services):
         dec_session_time: assign({
             session_time: (ctx) => ctx.session_time -= 1
         }),
@@ -120,11 +117,11 @@ const sessionClockMachine = createMachine({
         })
     },
     services: {
-        session_timer: (ctx, event) => (callback, onReceive) => {
+        session_timer: (_, __) => (callback, _) => {
             const id = setInterval(() => callback('DEC_SESSION_TIME'), 1000);
             return () => clearInterval(id)
         },
-        break_timer: (ctx, event) => (callback, onReceive) => {
+        break_timer: (_, __) => (callback, _) => {
             const id = setInterval(() => callback('DEC_BREAK_TIME'), 1000);
             return () => clearInterval(id)
         }
