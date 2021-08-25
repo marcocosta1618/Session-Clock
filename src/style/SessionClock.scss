@@ -1,14 +1,56 @@
 body {
     width: 100vw;
     height: 100vh;
+    padding: 0;
+    margin: 0;
+    text-align: center;
     background-color: grey;
 }
 
 * {
-    padding: 0.5rem;
-    margin: 0.5rem;
+    box-sizing: border-box;
+    font-family: 'Lato';
 }
 
+button {
+    margin: 1rem;
+    padding: 0.5rem;
+    border: 0px;
+    border-radius: 4px;
+}
+
+.settings {
+    display: flex;
+    justify-content: space-around;
+    padding: 3rem;
+    text-align: center;
+
+}
+.session-settings,
+.break-settings {
+    margin: 1rem;
+    button {
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    span {
+        margin-left: 0.25rem;
+    }
+}
+#timer-label {
+    margin: 1rem;
+    font-size: 2rem;
+}
 #time-left {
     display: block;
+    margin: 1rem;
+    font-size: 3rem;
+}
+#start_stop,
+#reset {
+    font-size: 1.5rem;
+    &:hover {
+        cursor: pointer;
+    }
 }

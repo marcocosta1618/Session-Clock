@@ -5,7 +5,6 @@ import ClockDisplay from './ClockDisplay.js';
 import './style/SessionClock.css';
 
 function SessionClock() {
-  
   const [state, send] = useMachine(sessionClockMachine); // state-machine
 
   const [isOn, setIsOn] = useState(false); // timer START/STOP button state
@@ -55,36 +54,47 @@ function SessionClock() {
     sound.pause();
     sound.currentTime = 0;
     // send RESET to machine
-    send({ type: 'RESET'});
+    send({ type: 'RESET' });
   }
 
   return (
-    <div>
-      {/* send decrement/increment session_length to machine */}
-      <button id='session-decrement' onClick={() => send({ type: 'DEC_SESSION' })}>decrement session</button>
-      <div id='session-label'>session length:
-        <span id='session-length'>{(state.context.session_length)}</span>
+    <>
+      <div className='settings'>
+        <div className='session-settings'>
+          {/* send decrement/increment session_length to machine */}
+          <button id='session-increment' onClick={() => send({ type: 'INC_SESSION' })}>increment</button>
+          <div id='session-label'>SESSION LENGTH: 
+            <span id='session-length'>{(state.context.session_length)}</span>
+          </div>
+          <button id='session-decrement' onClick={() => send({ type: 'DEC_SESSION' })}>decrement</button>
+        </div>
+
+        <div className='break-settings'>
+          {/* send decrement/increment break_length to machine */}
+          <button id='break-increment' onClick={() => send({ type: 'INC_BREAK' })}>increment</button>
+          <div id='break-label'>BREAK LENGTH: 
+            <span id='break-length'>{(state.context.break_length)}</span>
+          </div>
+          <button id='break-decrement' onClick={() => send({ type: 'DEC_BREAK' })}>decrement</button>
+        </div>
       </div>
-      <button id='session-increment' onClick={() => send({ type: 'INC_SESSION' })}>increment session</button>
-      {/* send decrement/increment break_length to machine */}
-      <button id='break-decrement' onClick={() => send({ type: 'DEC_BREAK' })}>decrement break</button>
-      <div id='break-label'>break length:
-        <span id='break-length'>{(state.context.break_length)}</span>
-      </div>
-      <button id='break-increment' onClick={() => send({ type: 'INC_BREAK' })}>increment break</button>
+
       <span id='timer-label'> {/* displaying current state */}
         {!(state.value.hasOwnProperty('counting'))
-          ? 'PAUSED'
+          ? 'STOP'
           : state.value.counting === 'session'
             ? 'SESSION'
             : 'BREAK'}
       </span>
+
       <ClockDisplay state={state} ></ClockDisplay>
-      <button id='start_stop' onClick={() => clockStartStop()}> {isOn ? 'PAUSE' : 'START'}</button>
+
+      <button id='start_stop' onClick={() => clockStartStop()}> {isOn ? 'STOP' : 'START'}</button>
       <button id='reset' onClick={onReset}> RESET</button>
+
       <audio id='beep' ref={audioEl} src='./sounds/gongCsharp7.wav'>
       </audio>
-    </div>
+    </>
   );
 }
 
