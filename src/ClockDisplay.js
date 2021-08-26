@@ -3,18 +3,15 @@ export default function ClockDisplay({ state }) {
     // (i.e., what was the previous state)
     function display() {
         let display = state.context.session_time;
-        if (state.value.counting === 'session') {
-            return display;
-        } else if (state.value.counting === 'break') {
-            display = state.context.break_time
-        } else if (state.value === 'paused') {
-            if (state.historyValue !== undefined) {
-                if (state.historyValue.states.counting.current === 'break') {
-                    display = state.context.break_time
-                } else {
-                    display = state.context.session_time
-                }
+        if (state.value === 'paused') {
+            if (state.historyValue) {
+                state.historyValue.states.counting.current === 'break' 
+                ? display = state.context.break_time
+                : display = state.context.session_time
             }
+        }
+        if (state.value.counting === 'break') {
+            display = state.context.break_time
         }
         return display
     }
