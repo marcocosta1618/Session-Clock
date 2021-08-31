@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 export default function ClockDisplay({ state }) {
     // on 'paused' state, displays sesssion or break time depending on state.historyValue 
     // (i.e., what was the previous state)
@@ -20,6 +22,11 @@ export default function ClockDisplay({ state }) {
             <span id="time-left">{formatTime(display())}</span> // DISPLAY TIME REMAINING
     )
 }
+
+ClockDisplay.propTypes = {
+    state: PropTypes.object.isRequired
+}
+
 // helper function, convert number of seconds in mm:ss format:
 function formatTime(seconds) {
     let sec = (seconds % 60).toString();
