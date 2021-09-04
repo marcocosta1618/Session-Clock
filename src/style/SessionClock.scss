@@ -4,7 +4,7 @@ body {
     padding: 0;
     margin: 0;
     text-align: center;
-    background: linear-gradient(#9ddf90, #f3f3f3);
+    background: linear-gradient(#9ddf90, #cabbff 70%, #9ddf90);
     background-color: #9ddf90;
 }
 
@@ -22,8 +22,12 @@ h1 {
 button {
     margin: 1rem;
     padding: 0.5rem;
-    border: 0px;
+    border: 1px solid grey;
     border-radius: 4px;
+    &:active {
+        border: 1px solid #555;
+        border-style: inset;
+    }
 }
 
 .settings {
@@ -70,6 +74,20 @@ button {
         font-size: 1.5rem;
         &:hover {
             cursor: pointer;
+        }
+    }
+}
+
+footer {
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100vw;
+    font-size: 0.85rem;
+    border-top: 1px solid grey;
+    p {
+        margin: 0.5rem 0.5rem;
+        a {
+            color: #564a81;
         }
     }
 }

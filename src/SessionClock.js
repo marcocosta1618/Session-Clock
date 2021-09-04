@@ -2,6 +2,7 @@ import { useMachine } from '@xstate/react';
 import sessionClockMachine from './sessionClockMachine.js';
 import { useState, useEffect, useRef } from 'react';
 import ClockDisplay from './ClockDisplay.js';
+import Footer from './Footer';
 import './style/SessionClock.css';
 
 function SessionClock() {
@@ -93,6 +94,7 @@ function SessionClock() {
         <button id='start_stop' onClick={() => clockStartStop()}> {isOn ? 'STOP' : 'START'}</button>
         <button id='reset' onClick={onReset}> RESET</button>
       </div>
+      <Footer />
       <audio id='beep' ref={audioEl} src='./sounds/gongCsharp7.wav'>
       </audio>
     </>
