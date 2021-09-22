@@ -15,4 +15,4 @@ This app is hosted on [GitHub-pages](https://marcocosta1618.github.io/Session-Cl
 
 ---
 
-![screenshot(60%)](https://user-images.githubusercontent.com/78434326/132089604-6c788f73-7eae-4277-afd5-253d736ce28d.jpg)
+![screenshot(60%)](https://user-images.githubusercontent.com/78434326/134331811-aadc057f-f0f1-4fdf-93c5-6af323805c73.jpg)
